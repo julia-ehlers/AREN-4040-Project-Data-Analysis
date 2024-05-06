@@ -20,13 +20,27 @@ df = pd.read_parquet('baseline.parquet')
 relevant_input_columns = [
     'in.ashrae_iecc_climate_zone_2004',
     'in.state',
+    'in.vintage',
+    'in.sqft',
     'in.geometry_building_type_acs',
-    'in.geometry_foundation_type'
+    'in.geometry_foundation_type',
+    'in.infiltration',
+    'in.insulation_foundation_wall',
+    'in.insulation_roof',
+    'in.insulation_slab',
+    'in.insulation_wall',
+    'in.windows'
 ]
 
+# Eliminate extra columns from .parquet data file to make it easier to work with.
+# I also chose to work with single family dwelling units only, so I filtered out everything else.
 relevant_data = df.loc[: , relevant_input_columns]
 relevant_data = relevant_data.loc[relevant_data['in.geometry_building_type_acs'] == 'Single-Family Detached']
 
+# Everything in the quotes comment below was from when I intended to check multiple locations. I decided to focus on
+# Nebraska, but didn't want to delete it, so I reccommend collapsing the comment for easy viewing.
+
+"""
 print("Florida:")
 fl_data_state = relevant_data.loc[relevant_data['in.state'] == 'FL']
 fl_data = fl_data_state.loc[fl_data_state['in.ashrae_iecc_climate_zone_2004'] == '1A']
@@ -62,16 +76,53 @@ ma_data_state = relevant_data.loc[relevant_data['in.state'] == 'MA']
 ma_data = ma_data_state.loc[ma_data_state['in.ashrae_iecc_climate_zone_2004'] == '5A']
 print(ma_data['in.geometry_foundation_type'].value_counts(normalize = True) * 100)
 
-print("Nebraska:")
-ne_data_state = relevant_data.loc[relevant_data['in.state'] == 'NE']
-ne_data = ne_data_state.loc[ne_data_state['in.ashrae_iecc_climate_zone_2004'] == '5A']
-print(ne_data['in.geometry_foundation_type'].value_counts(normalize = True) * 100)
-
 print("Minnesota:")
 mn_data_state = relevant_data.loc[relevant_data['in.state'] == 'MN']
 mn_data = mn_data_state.loc[mn_data_state['in.ashrae_iecc_climate_zone_2004'] == '6A']
 print(mn_data['in.geometry_foundation_type'].value_counts(normalize = True) * 100)
 
+"""
+
+# Delete data that is not from Nebraska or IECC CZ 5A and create a new dataframe.
+ne_data_state = relevant_data.loc[relevant_data['in.state'] == 'NE']
+ne_data = ne_data_state.loc[ne_data_state['in.ashrae_iecc_climate_zone_2004'] == '5A']
+
+# Print uselful statistics on NE housing stock (topic in first line of each chunk).
+print("Basement Types:")
+print(ne_data['in.geometry_foundation_type'].value_counts(normalize = True) * 100)
+print("\n")
+
+print("Window Types:")
+print(ne_data['in.windows'].value_counts(normalize = True) * 100)
+print("\n")
+
+print("Size in Square Feet:")
+print(ne_data['in.sqft'].value_counts(normalize = True) * 100)
+print("\n")
+
+print("Age of Dwelling Units:")
+print(ne_data['in.vintage'].value_counts(normalize = True) * 100)
+print("\n")
+
+print("ACH50 Values:")
+print(ne_data['in.infiltration'].value_counts(normalize = True) * 100)
+print("\n")
+
+print("Wall Insulation:")
+print(ne_data['in.insulation_wall'].value_counts(normalize = True) * 100)
+print("\n")
+
+print("Roof Insulation:")
+print(ne_data['in.insulation_roof'].value_counts(normalize = True) * 100)
+print("\n")
+
+print("Foundation Wall Insulation:")
+print(ne_data['in.insulation_foundation_wall'].value_counts(normalize = True) * 100)
+print("\n")
+
+print("Slab Insulation:")
+print(ne_data['in.insulation_slab'].value_counts(normalize = True) * 100)
+print("\n")
 
 
 """
