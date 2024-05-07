@@ -1,0 +1,13 @@
+in.insulation_wall,proportion
+"Wood Stud, Uninsulated",0.5873407316070695
+"Wood Stud, R-11",0.20263049732840116
+"Wood Stud, R-7",0.07233867653103165
+"Wood Stud, R-15",0.05959720509658857
+"Wood Stud, R-19",0.054665022605836416
+"Brick, 12-in, 3-wythe, Uninsulated",0.017673653925195234
+"Brick, 12-in, 3-wythe, R-11",0.002877106452938759
+"Brick, 12-in, 3-wythe, R-7",0.0012330456226880395
+"CMU, 6-in Hollow, R-19",0.0004110152075626798
+"CMU, 6-in Hollow, Uninsulated",0.0004110152075626798
+"Brick, 12-in, 3-wythe, R-15",0.0004110152075626798
+"Brick, 12-in, 3-wythe, R-19",0.0004110152075626798
